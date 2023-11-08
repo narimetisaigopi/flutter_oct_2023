@@ -57,6 +57,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   obscureText: showPassword,
                   onChanged: (value) {},
                   validator: (str) {
+                    // null str != null
+                    // "" str.isEmpty
                     if (str != null && str.isEmpty) {
                       return "Enter password";
                     }
