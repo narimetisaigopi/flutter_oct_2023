@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_telugu/utils/styles.dart';
 import 'package:flutter_telugu/utils/utils.dart';
 import 'package:flutter_telugu/utils/validator.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 
 class RegistrationScreen extends StatefulWidget {
@@ -159,6 +158,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             normalValidation();
                           },
                     child: const Text("Sign Up")),
+                TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text("already have account?"))
               ],
             ),
           ),
@@ -180,8 +184,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   }
 
   normalValidation() {
-    
-   //int price = int.parse(phoneTextEditingController.text);
+    //int price = int.parse(phoneTextEditingController.text);
     if (userNameTextEditingController.text.isEmpty ||
         userNameTextEditingController.text.length < 4) {
       Utils.showToast("Enter valid username");
