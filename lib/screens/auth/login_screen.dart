@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_telugu/screens/auth/registration_screen.dart';
-import 'package:flutter_telugu/screens/home_screen.dart';
+import 'package:flutter_telugu/screens/dashboard_screen.dart';
 import 'package:flutter_telugu/utils/styles.dart';
 import 'package:flutter_telugu/utils/utils.dart';
 import 'package:flutter_telugu/utils/validator.dart';
@@ -81,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 formFeildPadding,
                 ElevatedButton(
                     onPressed: () {
-                      formValidation()();
+                      formValidation();
                     },
                     child: const Text("Sign In")),
                 TextButton(
@@ -127,7 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
       //     context, HomeScreen.routeName, (route) => false,
       //     arguments: emailTextEditingController.text);
       Navigator.pushNamedAndRemoveUntil(
-          context, HomeScreen.routeName, (route) => false,
+          context, DashboardScreen.routeName, (route) => false,
           arguments: [emailTextEditingController.text]);
     } else {}
   }

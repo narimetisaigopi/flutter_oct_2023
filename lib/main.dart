@@ -4,7 +4,7 @@ import 'package:flutter_telugu/screens/auth/login_screen.dart';
 import 'package:flutter_telugu/screens/auth/registration_screen.dart';
 import 'package:flutter_telugu/screens/splash_screen.dart';
 
-import 'screens/home_screen.dart';
+import 'screens/dashboard/home_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       showPerformanceOverlay: false,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          fontFamily: "Agbalumo",
+          // fontFamily: "Agbalumo",
           appBarTheme: const AppBarTheme(centerTitle: true),
           // textTheme: GoogleFonts.abhayaLibreTextTheme(),
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.grey),

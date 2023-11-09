@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_telugu/screens/auth/login_screen.dart';
-import 'package:flutter_telugu/screens/home_screen.dart';
+import 'package:flutter_telugu/screens/dashboard/home_screen.dart';
+import 'package:flutter_telugu/screens/dashboard_screen.dart';
 import 'package:flutter_telugu/screens/page_not_found.dart';
 import 'package:flutter_telugu/screens/splash_screen.dart';
 
@@ -14,7 +15,11 @@ onGenerateRoute(RouteSettings routeSettings) {
   } else if (routeSettings.name == HomeScreen.routeName) {
     return MaterialPageRoute(
         builder: (builder) =>
-            HomeScreen(email: (routeSettings.arguments as List)[0]));
+            const HomeScreen());
+  } else if (routeSettings.name == DashboardScreen.routeName) {
+    return MaterialPageRoute(
+        builder: (builder) =>
+            DashboardScreen(email: (routeSettings.arguments as List)[0]));
   } else {
     return MaterialPageRoute(builder: (builder) => const PageNotFound());
   }
