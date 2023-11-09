@@ -123,6 +123,9 @@ class _LoginScreenState extends State<LoginScreen> {
       //               email: emailTextEditingController.text,
       //             )),
       //     (route) => false);
+      //  Navigator.pushNamedAndRemoveUntil(
+      //     context, HomeScreen.routeName, (route) => false,
+      //     arguments: emailTextEditingController.text);
       Navigator.pushNamedAndRemoveUntil(
           context, HomeScreen.routeName, (route) => false,
           arguments: [emailTextEditingController.text]);

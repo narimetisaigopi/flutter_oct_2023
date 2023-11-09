@@ -25,7 +25,8 @@ class _SplashScreenState extends State<SplashScreen> {
       //   context,
       //   MaterialPageRoute(builder: (builder) => const LoginScreen()),
       // );
-      Navigator.pushNamed(context, LoginScreen.routeName);
+      Navigator.pushNamedAndRemoveUntil(
+          context, LoginScreen.routeName, (sa) => false);
       // Navigator.pushNamedAndRemoveUntil(
       //     context, LoginScreen.routeName, (sa) => false);
       // Navigator.pushAndRemoveUntil(

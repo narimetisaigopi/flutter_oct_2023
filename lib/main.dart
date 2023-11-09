@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_telugu/routes/routes.dart';
 import 'package:flutter_telugu/screens/auth/login_screen.dart';
 import 'package:flutter_telugu/screens/auth/registration_screen.dart';
 import 'package:flutter_telugu/screens/splash_screen.dart';
@@ -30,17 +31,18 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.grey),
           useMaterial3: false),
       themeMode: ThemeMode.system,
-      // onGenerateRoute: ,
-      // onGenerateInitialRoutes: ,
-      initialRoute: '/',
-      routes: {
-        "/": (context) => const SplashScreen(),
-        LoginScreen.routeName: (context) => const LoginScreen(),
-        "/registrationScreen": (context) => const RegistrationScreen(),
-        HomeScreen.routeName: (context) => const HomeScreen(
-              email: "",
-            ),
+      onGenerateRoute: (settings) {
+        return onGenerateRoute(settings);
       },
+      initialRoute: '/',
+      // routes: {
+      //   "/": (context) => const SplashScreen(),
+      //   LoginScreen.routeName: (context) => const LoginScreen(),
+      //   "/registrationScreen": (context) => const RegistrationScreen(),
+      //   HomeScreen.routeName: (context) => const HomeScreen(
+      //         email: "",
+      //       ),
+      // },
     );
   }
 }
