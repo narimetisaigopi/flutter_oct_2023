@@ -113,10 +113,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
               icon: Icon(Icons.shopping_bag), label: "Cart"),
           BottomNavigationBarItem(
               icon: Icon(Icons.verified_user_sharp), label: "Profile"),
-          // BottomNavigationBarItem(
-          //     icon: Icon(Icons.favorite_outline), label: "Favourites"),
-          // BottomNavigationBarItem(
-          //     icon: Icon(Icons.settings), label: "Settings"),
         ],
       ),
     );

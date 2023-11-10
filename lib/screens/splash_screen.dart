@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_telugu/screens/auth/login_screen.dart';
+import 'package:flutter_telugu/screens/dashboard_screen.dart';
 import 'package:flutter_telugu/utils/utils.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -26,7 +27,8 @@ class _SplashScreenState extends State<SplashScreen> {
       //   MaterialPageRoute(builder: (builder) => const LoginScreen()),
       // );
       Navigator.pushNamedAndRemoveUntil(
-          context, LoginScreen.routeName, (sa) => false);
+          context, DashboardScreen.routeName, (sa) => false,
+          arguments: [""]);
       // Navigator.pushNamedAndRemoveUntil(
       //     context, LoginScreen.routeName, (sa) => false);
       // Navigator.pushAndRemoveUntil(
