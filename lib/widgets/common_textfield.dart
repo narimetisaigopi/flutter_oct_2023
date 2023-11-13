@@ -3,14 +3,20 @@ import 'package:flutter/material.dart';
 class CommonTextField extends StatefulWidget {
   final String hintText;
   final String labelText;
-  final IconData prefixIconData;
+  final IconData? prefixIconData;
+  final IconData? sufixIconData;
   final double labelFontSize;
+  final Function(String?) validator;
+  final Function(String)? onChanged;
   const CommonTextField(
       {super.key,
       required this.hintText,
       this.labelText = "",
       this.labelFontSize = 16,
-      required this.prefixIconData});
+      this.prefixIconData,
+      this.sufixIconData,
+      required this.validator,
+      this.onChanged});
 
   @override
   State<CommonTextField> createState() => _CommonTextFieldState();
@@ -19,17 +25,32 @@ class CommonTextField extends StatefulWidget {
 class _CommonTextFieldState extends State<CommonTextField> {
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       // maxLines: 3,
       maxLength: 100,
       enabled: true,
+      // validator: (str) => widget.validator(str),
+      // validator: widget.validator != null
+      //     ? (str) {
+      //         return widget.validator(str ?? "");
+      //       }
+      //     : null,
+      validator: widget.validator != null
+          ? (str) {
+              return widget.validator.call(str ?? "");
+            }
+          : null,
+      onChanged: widget.onChanged,
       //   keyboardType: TextInputType.multiline,
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
           hintText: widget.hintText,
           labelText: widget.labelText,
-          prefixIcon: Icon(widget.prefixIconData),
-          suffix: Icon(Icons.check_outlined),
+          prefixIcon: widget.prefixIconData != null
+              ? Icon(widget.prefixIconData)
+              : null,
+          suffix:
+              widget.sufixIconData != null ? Icon(Icons.check_outlined) : null,
           // label: Widget()` try your self
           labelStyle: TextStyle(fontSize: widget.labelFontSize),
           hintStyle: TextStyle(),

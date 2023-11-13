@@ -3,6 +3,8 @@ import 'package:flutter_telugu/screens/auth/registration_screen.dart';
 import 'package:flutter_telugu/screens/dashboard/cart_screen.dart';
 import 'package:flutter_telugu/screens/dashboard/home_screen.dart';
 import 'package:flutter_telugu/screens/dashboard/profile_screen.dart';
+import 'package:flutter_telugu/screens/notifications/notifications_screen.dart';
+import 'package:flutter_telugu/screens/slide_show_screen.dart';
 import 'package:flutter_telugu/utils/utils.dart';
 import 'package:flutter_telugu/widgets/drawer_item.dart';
 
@@ -25,12 +27,23 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Dashboard Screen"),
-        // actions: const [
-        //   Icon(Icons.settings),
-        //   SizedBox(
-        //     width: 10,
-        //   )
-        // ],
+        actions: [
+          InkWell(
+              onTap: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (builder) => SlideShowScreen()));
+              },
+              child: Icon(Icons.slideshow_outlined)),
+          SizedBox(
+            width: 10,
+          ),
+          InkWell(
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (builder) => NotificationsScreen()));
+              },
+              child: Icon(Icons.notifications)),
+        ],
       ),
       drawer: Drawer(
         // width: 200,

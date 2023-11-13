@@ -4,6 +4,7 @@ import 'package:flutter_telugu/screens/dashboard_screen.dart';
 import 'package:flutter_telugu/utils/styles.dart';
 import 'package:flutter_telugu/utils/utils.dart';
 import 'package:flutter_telugu/utils/validator.dart';
+import 'package:flutter_telugu/widgets/common_textfield.dart';
 import 'package:image_picker/image_picker.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -40,16 +41,25 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                TextFormField(
-                  controller: emailTextEditingController,
-                  keyboardType: TextInputType.emailAddress,
-                  maxLength: 200,
+                // TextFormField(
+                //   controller: emailTextEditingController,
+                //   keyboardType: TextInputType.emailAddress,
+                //   maxLength: 200,
+                //   validator: (email) => Validator().validEmail(email ?? ""),
+                //   decoration: const InputDecoration(
+                //       hintText: "Enter email",
+                //       labelText: "Email",
+                //       counterText: "",
+                //       border: OutlineInputBorder()),
+                // ),
+                CommonTextField(
+                  hintText: "Enter email",
+                  labelText: "Email",
+                  prefixIconData: null,
                   validator: (email) => Validator().validEmail(email ?? ""),
-                  decoration: const InputDecoration(
-                      hintText: "Enter email",
-                      labelText: "Email",
-                      counterText: "",
-                      border: OutlineInputBorder()),
+                  onChanged: (value) {
+                    print("object ${value}");
+                  },
                 ),
                 formFeildPadding,
                 TextFormField(
