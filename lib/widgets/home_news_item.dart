@@ -14,14 +14,15 @@ class HomeNewsItem extends StatelessWidget {
     return Card(
       child: ListTile(
         onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (builder) => DetailsPage(
-                        imageUrl: imageUrl,
-                        title: title,
-                        description: description,
-                      )));
+          // Navigator.push(
+          //     context,
+          //     MaterialPageRoute(
+          //         builder: (builder) => DetailsPage(
+          //               imageUrl: imageUrl,
+          //               title: title,
+          //               description: description,
+          //             )));
+          showAboutBottomSheet(context);
         },
         leading: Image.network(
           imageUrl,
@@ -69,5 +70,38 @@ class HomeNewsItem extends StatelessWidget {
     //     ),
     //   ),
     // );
+  }
+
+  showAboutBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+        // isDismissible: false,
+        // enableDrag: false,
+        context: context,
+        isScrollControlled: true,
+        builder: (bottomContext) {
+          return Container(
+            padding: MediaQuery.of(context).viewInsets,
+            width: double.infinity,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image.network(
+                  imageUrl,
+                  height: 200,
+                  width: double.infinity,
+                ),
+                TextField(),
+                Text(title),
+                Text(description),
+                IconButton(
+                    onPressed: () {
+                      Navigator.pop(bottomContext);
+                    },
+                    icon: const Icon(Icons.close))
+              ],
+            ),
+          );
+        }).then((value) {});
   }
 }
