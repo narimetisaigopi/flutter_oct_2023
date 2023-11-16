@@ -3,6 +3,7 @@ import 'package:flutter_telugu/screens/auth/registration_screen.dart';
 import 'package:flutter_telugu/screens/dashboard/cart_screen.dart';
 import 'package:flutter_telugu/screens/dashboard/home_screen.dart';
 import 'package:flutter_telugu/screens/dashboard/profile_screen.dart';
+import 'package:flutter_telugu/screens/dashboard/shop_screen.dart';
 import 'package:flutter_telugu/screens/notifications/notifications_screen.dart';
 import 'package:flutter_telugu/screens/settings/profile_settings.dart';
 import 'package:flutter_telugu/screens/slide_show_screen.dart';
@@ -21,7 +22,12 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   int currentIndex = 0;
 
-  List screensList = const [HomeScreen(), CartScreen(), ProfileScreen()];
+  List screensList = const [
+    HomeScreen(),
+    ShopScreen(),
+    CartScreen(),
+    ProfileScreen()
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -186,6 +192,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
           },
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.shop), label: "Shop"),
             BottomNavigationBarItem(
                 icon: Icon(Icons.shopping_bag), label: "Cart"),
             BottomNavigationBarItem(
