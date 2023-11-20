@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_telugu/main.dart';
 import 'package:flutter_telugu/screens/auth/registration_screen.dart';
 import 'package:flutter_telugu/screens/dashboard_screen.dart';
 import 'package:flutter_telugu/utils/styles.dart';
@@ -6,6 +7,8 @@ import 'package:flutter_telugu/utils/utils.dart';
 import 'package:flutter_telugu/utils/validator.dart';
 import 'package:flutter_telugu/widgets/common_textfield.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 
 class LoginScreen extends StatefulWidget {
   static const routeName = "/login";
@@ -53,6 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 //       border: OutlineInputBorder()),
                 // ),
                 CommonTextField(
+                  textEditingController: emailTextEditingController,
                   hintText: "Enter email",
                   labelText: "Email",
                   prefixIconData: null,
@@ -63,6 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 formFeildPadding,
                 TextFormField(
+                  controller: passwordTextEditingController,
                   maxLength: 200,
                   obscureText: showPassword,
                   onChanged: (value) {},
@@ -114,7 +119,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       //         builder: (builder) => const RegistrationScreen()),
                       //     (route) => false);
                     },
-                    child: const Text("Don't have account?"))
+                    child: const Text("Don't have account?")),
+                TextButton(
+                    onPressed: () {
+                      launchUrl(
+                          Uri.parse("https://www.google.co.in/?client=safari"),
+                          mode: LaunchMode.externalApplication);
+                    },
+                    child: Text("for support, click here!!!"))
               ],
             ),
           ),
@@ -136,9 +148,37 @@ class _LoginScreenState extends State<LoginScreen> {
       //  Navigator.pushNamedAndRemoveUntil(
       //     context, HomeScreen.routeName, (route) => false,
       //     arguments: emailTextEditingController.text);
+      // Navigator.pushNamedAndRemoveUntil(
+      //     context, DashboardScreen.routeName, (route) => false,
+      //     arguments: [emailTextEditingController.text]);
+
+      sharedPreferences.setString("email", emailTextEditingController.text);
+      sharedPreferences.setString(
+          "password", passwordTextEditingController.text);
+      sharedPreferences.setBool("isLoggedIn", true);
+      // {
+      //   "email":"",
+      //   "password":"",
+      //   "isLoggedIn":true,
+      // }
       Navigator.pushNamedAndRemoveUntil(
           context, DashboardScreen.routeName, (route) => false,
-          arguments: [emailTextEditingController.text]);
+          arguments: [""]);
+    } else {}
+  }
+
+  loginApi() async {
+    // GET	/comments?email=sai@gmail.com&password=12233  => Path params
+    http.Response response = await http.post(
+        Uri.parse(
+          "https://jsonplaceholder.typicode.com/posts",
+        ),
+        headers: {},
+        body: {
+          "email": emailTextEditingController.text,
+          "password": passwordTextEditingController.text,
+        });
+    if (response.statusCode == 201) {
     } else {}
   }
 

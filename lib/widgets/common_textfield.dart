@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CommonTextField extends StatefulWidget {
+  final TextEditingController textEditingController;
   final String hintText;
   final String labelText;
   final IconData? prefixIconData;
@@ -16,6 +17,7 @@ class CommonTextField extends StatefulWidget {
       this.prefixIconData,
       this.sufixIconData,
       required this.validator,
+      required this.textEditingController,
       this.onChanged});
 
   @override
@@ -26,6 +28,7 @@ class _CommonTextFieldState extends State<CommonTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: widget.textEditingController,
       // maxLines: 3,
       maxLength: 100,
       enabled: true,

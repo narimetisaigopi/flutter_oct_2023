@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:carousel_slider/carousel_options.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_telugu/models/product_model.dart';
 import 'package:flutter_telugu/utils/utils.dart';
@@ -70,32 +72,120 @@ class _ShopScreenState extends State<ShopScreen> {
     }
   }
 
+  Future<List<ProductModel>> getFutureData() async {
+    List<ProductModel> productsList = [];
+    try {
+//       GET	/posts/3/comments => Path params
+// GET	/comments?postId=1  => Path params
+      int a = 1;
+      http.Response response =
+          await http.get(Uri.parse("https://dummyjson.com/products"));
+      if (response.statusCode == 200) {
+        String data = response.body;
+        List products = jsonDecode(data)["products"] ?? [];
+        productsList = products.map((e) => ProductModel.fromMap(e)).toList();
+        return productsList;
+      } else {
+        throw Exception("Data not found, status code is not 200");
+      }
+    } catch (e, stackTrace) {
+      log(stackTrace.toString());
+      Utils.showToast("Failed to get data");
+      print(e.toString());
+      throw Exception(e.toString());
+    } finally {
+      // ignore: control_flow_in_finally
+      // return productsList;
+    }
+  }
+
   @override
   void initState() {
     //getDataUsingCallBack();
-    getData();
+    // getData();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: isLoading
-          ? Center(child: CircularProgressIndicator())
-          : ListView.builder(
-              itemCount: productsList.length,
-              itemBuilder: (context, index) {
-                return Card(
-                  child: ListTile(
-                    leading: Image.network(
-                      productsList[index].thumbnail,
-                      width: 100,
-                      height: 100,
+      // body: isLoading
+      //     ? Center(child: CircularProgressIndicator())
+      //     : ListView.builder(
+      //         itemCount: productsList.length,
+      //         itemBuilder: (context, index) {
+      // return Card(
+      //   child: ListTile(
+      //     leading: Image.network(
+      //       productsList[index].thumbnail,
+      //       width: 100,
+      //       height: 100,
+      //     ),
+      //     title: Text(productsList[index].title),
+      //   ),
+      // );
+      //         }),
+      body: FutureBuilder<List<ProductModel>>(
+        future: getFutureData(),
+        builder: (context, snapshot) {
+          // setup 1
+          if (snapshot.hasData) {
+            if (snapshot.data == null || snapshot.data!.isEmpty) {
+              return const Text("No Data");
+            }
+            return ListView.builder(
+                itemCount: snapshot.data!.length,
+                itemBuilder: (context, index) {
+                  ProductModel productModel = snapshot.data![index];
+                  return Card(
+                    child: Column(
+                      children: [
+                        CarouselSlider(
+                          options: CarouselOptions(
+                              height: 150.0,
+                              aspectRatio: 16 / 9,
+                              autoPlay: true,
+                              autoPlayInterval: const Duration(seconds: 5)),
+                          items: productModel.images.map((i) {
+                            return Builder(
+                              builder: (BuildContext context) {
+                                return Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 5.0),
+                                    decoration: const BoxDecoration(
+                                        color: Colors.transparent),
+                                    child: Image.network(
+                                      i,
+                                      fit: BoxFit.fill,
+                                    ));
+                              },
+                            );
+                          }).toList(),
+                        ),
+                        ListTile(
+                          leading: Image.network(
+                            productModel.thumbnail,
+                            width: 100,
+                            height: 100,
+                          ),
+                          title: Text(productModel.title),
+                        ),
+                      ],
                     ),
-                    title: Text(productsList[index].title),
-                  ),
-                );
-              }),
+                  );
+                });
+          }
+          // setup 2
+          if (snapshot.hasError) {
+            return Center(child: Text(snapshot.error.toString()));
+            // return Center(child: Text("Something went wrong."));
+          }
+          // setup 3
+          return const Center(child: CircularProgressIndicator());
+        },
+      ),
+      // body: StreamBuilder(),
     );
   }
 }

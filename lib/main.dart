@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_telugu/routes/routes.dart';
-import 'package:flutter_telugu/screens/auth/login_screen.dart';
-import 'package:flutter_telugu/screens/auth/registration_screen.dart';
-import 'package:flutter_telugu/screens/splash_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import 'screens/dashboard/home_screen.dart';
-
-void main() {
+late SharedPreferences sharedPreferences;
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  sharedPreferences = await SharedPreferences.getInstance();
   runApp(const MyApp());
 }
 

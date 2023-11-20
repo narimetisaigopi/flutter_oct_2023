@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_telugu/main.dart';
+import 'package:flutter_telugu/screens/auth/login_screen.dart';
 import 'package:flutter_telugu/screens/auth/registration_screen.dart';
 import 'package:flutter_telugu/screens/dashboard/cart_screen.dart';
 import 'package:flutter_telugu/screens/dashboard/home_screen.dart';
@@ -7,6 +9,7 @@ import 'package:flutter_telugu/screens/dashboard/shop_screen.dart';
 import 'package:flutter_telugu/screens/notifications/notifications_screen.dart';
 import 'package:flutter_telugu/screens/settings/profile_settings.dart';
 import 'package:flutter_telugu/screens/slide_show_screen.dart';
+import 'package:flutter_telugu/screens/splash_screen.dart';
 import 'package:flutter_telugu/utils/utils.dart';
 import 'package:flutter_telugu/widgets/drawer_item.dart';
 
@@ -113,7 +116,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             children: [
               Container(
                 width: double.infinity,
-                child: const DrawerHeader(
+                child: DrawerHeader(
                     decoration: BoxDecoration(color: Colors.green),
                     child: Column(
                       children: [
@@ -124,7 +127,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             SizedBox(
                               height: 20,
                             ),
-                            Text("saigopi@gmail.com")
+                            Column(
+                              children: [
+                                Text(
+                                    sharedPreferences.getString("email") ?? ""),
+                                Text(sharedPreferences.getString("password") ??
+                                    "")
+                              ],
+                            ),
                           ],
                         ),
                         SizedBox(
@@ -176,6 +186,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   Utils.showToast("Clicked on RegistrationScreen");
                 },
               ),
+              DrawerItem(
+                title: "Sign Out",
+                iconData: Icons.transcribe,
+                onTap: () async {
+                  Navigator.pop(context);
+                  await sharedPreferences.clear();
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => SplashScreen()),
+                      (route) => false);
+                  Utils.showToast("Clicked on RegistrationScreen");
+                },
+              ),
             ],
           ),
         ),
@@ -192,8 +215,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           },
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.shop), label: "Shop"),
+            BottomNavigationBarItem(icon: Icon(Icons.shop), label: "Shop"),
             BottomNavigationBarItem(
                 icon: Icon(Icons.shopping_bag), label: "Cart"),
             BottomNavigationBarItem(

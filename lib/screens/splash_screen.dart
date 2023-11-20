@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_telugu/main.dart';
 import 'package:flutter_telugu/screens/auth/login_screen.dart';
 import 'package:flutter_telugu/screens/dashboard_screen.dart';
 import 'package:flutter_telugu/utils/utils.dart';
@@ -26,9 +27,9 @@ class _SplashScreenState extends State<SplashScreen> {
       //   context,
       //   MaterialPageRoute(builder: (builder) => const LoginScreen()),
       // );
-      Navigator.pushNamedAndRemoveUntil(
-          context, DashboardScreen.routeName, (sa) => false,
-          arguments: [""]);
+      // Navigator.pushNamedAndRemoveUntil(
+      //     context, LoginScreen.routeName, (sa) => false,
+      //     arguments: [""]);
       // Navigator.pushNamedAndRemoveUntil(
       //     context, LoginScreen.routeName, (sa) => false);
       // Navigator.pushAndRemoveUntil(
@@ -44,6 +45,21 @@ class _SplashScreenState extends State<SplashScreen> {
       //         FadeTransition(opacity: a, child: c),
       //   ),
       // );
+      bool isLoggedIn = sharedPreferences.getBool("isLoggedIn") ?? false;
+      if (isLoggedIn) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (builder) => const DashboardScreen(
+                    email: '',
+                  )),
+        );
+      } else {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (builder) => const LoginScreen()),
+        );
+      }
     });
     super.initState();
   }

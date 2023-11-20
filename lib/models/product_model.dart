@@ -8,13 +8,19 @@ class ProductModel {
   final int id;
   final String title;
   final String thumbnail;
+  final List images;
   // step: 2 constructor (should have named parameters with default values)
-  ProductModel({this.id = 0, this.title = "", this.thumbnail = ""});
+  ProductModel(
+      {this.id = 0,
+      this.title = "",
+      this.thumbnail = "",
+      this.images = const []});
   // step: 3 parsing the data
   factory ProductModel.fromMap(Map map) {
     return ProductModel(
         id: map["id"] ?? 0,
         title: map["title"] ?? "",
-        thumbnail: map["thumbnail"] ?? "");
+        thumbnail: map["thumbnail"] ?? "",
+        images: map["images"] ?? []);
   }
 }
