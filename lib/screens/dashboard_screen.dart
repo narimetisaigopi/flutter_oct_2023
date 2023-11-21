@@ -7,6 +7,7 @@ import 'package:flutter_telugu/screens/dashboard/home_screen.dart';
 import 'package:flutter_telugu/screens/dashboard/profile_screen.dart';
 import 'package:flutter_telugu/screens/dashboard/shop_screen.dart';
 import 'package:flutter_telugu/screens/notifications/notifications_screen.dart';
+import 'package:flutter_telugu/screens/provider/provider_list_screen.dart';
 import 'package:flutter_telugu/screens/settings/profile_settings.dart';
 import 'package:flutter_telugu/screens/slide_show_screen.dart';
 import 'package:flutter_telugu/screens/splash_screen.dart';
@@ -156,6 +157,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 iconData: Icons.supervised_user_circle,
                 onTap: () {
                   Utils.showToast("Clicked on Profile");
+                },
+              ),
+              DrawerItem(
+                title: "Provider Example",
+                iconData: Icons.supervised_user_circle,
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (ctx) => const ProviderListScreen()));
                 },
               ),
               DrawerItem(
