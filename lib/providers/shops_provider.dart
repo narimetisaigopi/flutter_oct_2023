@@ -8,30 +8,42 @@ import 'package:http/http.dart' as http;
 
 class ShopsProvider extends ChangeNotifier {
   List<ProviderShoppingModel> providerShoppingModelList = [];
+  bool isLoading = false;
+  String error = "";
   getShoppingData() async {
-    providerShoppingModelList.clear();
-    http.Response response =
-        await http.get(Uri.parse(ApiConstants.shoppingProducts));
-    log("getShoppingData ${response.body}");
-    if (response.statusCode == 200) {
-      // data received
-      providerShoppingModelList = (jsonDecode(response.body) as List).map((e) {
-        ProviderShoppingModel providerShoppingModel = ProviderShoppingModel();
-        providerShoppingModel.fromJson(e);
-        print("providerShoppingModel ${providerShoppingModel.title}");
-        return providerShoppingModel;
-      }).toList();
-      // var list = (jsonDecode(response.body) as List);
-      // for (var element in list) {
-      //   print(element);
-      //   ProviderShoppingModel shoppingModel = ProviderShoppingModel();
-      //   shoppingModel.title = element["title"];
-      //   providerShoppingModelList.add(shoppingModel);
-      // }
-    } else {
-      // something went wrong
+    try {
+      isLoading = true;
+      error = "";
+      notifyListeners();
+      providerShoppingModelList.clear();
+      http.Response response =
+          await http.get(Uri.parse(ApiConstants.shoppingProducts));
+      log("getShoppingData ${response.body}");
+      if (response.statusCode == 200) {
+        // data received
+        providerShoppingModelList =
+            (jsonDecode(response.body) as List).map((e) {
+          ProviderShoppingModel providerShoppingModel = ProviderShoppingModel();
+          providerShoppingModel.fromJson(e);
+          print("providerShoppingModel ${providerShoppingModel.title}");
+          return providerShoppingModel;
+        }).toList();
+        // var list = (jsonDecode(response.body) as List);
+        // for (var element in list) {
+        //   print(element);
+        //   ProviderShoppingModel shoppingModel = ProviderShoppingModel();
+        //   shoppingModel.title = element["title"];
+        //   providerShoppingModelList.add(shoppingModel);
+        // }
+      } else {
+        // something went wrong
+      }
+    } catch (e) {
+      error = e.toString();
+    } finally {
+      isLoading = false;
+      notifyListeners();
     }
-    notifyListeners();
     log("providerShoppingModelList ${providerShoppingModelList.length}");
   }
 }

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_telugu/models/provider/cart_provider.dart';
 import 'package:flutter_telugu/models/provider/provider_shopping_model.dart';
 import 'package:flutter_telugu/providers/shops_provider.dart';
-import 'package:flutter_telugu/screens/dashboard/cart_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'cart_provider_list_screen.dart';
@@ -62,33 +61,40 @@ class _ProviderListScreenState extends State<ProviderListScreen> {
         //return Text("${shopsProvider.providerShoppingModelList.toString()}");
         return Column(
           children: [
-            Expanded(
-              child: ListView.builder(
-                  itemCount: shopsProvider.providerShoppingModelList.length,
-                  itemBuilder: (context, index) {
-                    ProviderShoppingModel providerShoppingModel =
-                        shopsProvider.providerShoppingModelList[index];
-                    return Card(
-                      child: ListTile(
-                        leading: Image.network(
-                          providerShoppingModel.image,
-                          width: 100,
-                          height: 100,
-                        ),
-                        title: Text(
-                          providerShoppingModel.title,
-                          style: const TextStyle(color: Colors.black),
-                        ),
-                        trailing: TextButton(
-                            onPressed: () {
-                              cartProvider.addToCart(providerShoppingModel);
-                            },
-                            child: const Text("Add to cart")),
+            shopProvider.isLoading
+                ? const Center(child: CircularProgressIndicator())
+                : shopsProvider.error.isNotEmpty
+                    ? Text(shopsProvider.error)
+                    : Expanded(
+                        child: ListView.builder(
+                            itemCount:
+                                shopsProvider.providerShoppingModelList.length,
+                            itemBuilder: (context, index) {
+                              ProviderShoppingModel providerShoppingModel =
+                                  shopsProvider
+                                      .providerShoppingModelList[index];
+                              return Card(
+                                child: ListTile(
+                                  leading: Image.network(
+                                    providerShoppingModel.image,
+                                    width: 100,
+                                    height: 100,
+                                  ),
+                                  title: Text(
+                                    providerShoppingModel.title,
+                                    style: const TextStyle(color: Colors.black),
+                                  ),
+                                  trailing: TextButton(
+                                      onPressed: () {
+                                        cartProvider
+                                            .addToCart(providerShoppingModel);
+                                      },
+                                      child: const Text("Add to cart")),
+                                ),
+                              );
+                              // return Text("hello");
+                            }),
                       ),
-                    );
-                    // return Text("hello");
-                  }),
-            ),
           ],
         );
       }),

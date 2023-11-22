@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_telugu/main.dart';
-import 'package:flutter_telugu/screens/auth/login_screen.dart';
 import 'package:flutter_telugu/screens/auth/registration_screen.dart';
 import 'package:flutter_telugu/screens/dashboard/cart_screen.dart';
 import 'package:flutter_telugu/screens/dashboard/home_screen.dart';
 import 'package:flutter_telugu/screens/dashboard/profile_screen.dart';
 import 'package:flutter_telugu/screens/dashboard/shop_screen.dart';
+import 'package:flutter_telugu/screens/my_getx/my_getx_screen.dart';
 import 'package:flutter_telugu/screens/notifications/notifications_screen.dart';
 import 'package:flutter_telugu/screens/provider/provider_list_screen.dart';
 import 'package:flutter_telugu/screens/settings/profile_settings.dart';
@@ -13,6 +13,8 @@ import 'package:flutter_telugu/screens/slide_show_screen.dart';
 import 'package:flutter_telugu/screens/splash_screen.dart';
 import 'package:flutter_telugu/utils/utils.dart';
 import 'package:flutter_telugu/widgets/drawer_item.dart';
+import 'package:get/instance_manager.dart';
+import 'package:get/route_manager.dart';
 
 class DashboardScreen extends StatefulWidget {
   static const routeName = "/DashboardScreen";
@@ -168,6 +170,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       context,
                       MaterialPageRoute(
                           builder: (ctx) => const ProviderListScreen()));
+                },
+              ),
+              DrawerItem(
+                title: "Getx Example",
+                iconData: Icons.get_app,
+                onTap: () {
+                  // Navigator.pop(context);
+                  Get.back();
+                  Get.to(() => const MyGetxScreen());
+                  //Get.offUntil(page, (route) => false);
+                  // Get.off(child)
                 },
               ),
               DrawerItem(

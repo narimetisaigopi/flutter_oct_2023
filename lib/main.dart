@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_telugu/models/provider/cart_provider.dart';
 import 'package:flutter_telugu/routes/routes.dart';
+import 'package:get/route_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -30,7 +31,8 @@ class MyApp extends StatelessWidget {
           create: (context) => CartProvider(),
         ),
       ],
-      child: MaterialApp(
+      // child: MaterialApp(
+      child: GetMaterialApp(
         color: Colors.red,
         title: 'My flutter App',
         showPerformanceOverlay: false,
