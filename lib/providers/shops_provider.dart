@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 
 class ShopsProvider extends ChangeNotifier {
   List<ProviderShoppingModel> providerShoppingModelList = [];
+  List<ProviderShoppingModel> filteredProviderShoppingModelList = [];
   bool isLoading = false;
   String error = "";
   getShoppingData() async {
@@ -15,6 +16,7 @@ class ShopsProvider extends ChangeNotifier {
       isLoading = true;
       error = "";
       notifyListeners();
+      filteredProviderShoppingModelList.clear();
       providerShoppingModelList.clear();
       http.Response response =
           await http.get(Uri.parse(ApiConstants.shoppingProducts));
@@ -28,6 +30,7 @@ class ShopsProvider extends ChangeNotifier {
           print("providerShoppingModel ${providerShoppingModel.title}");
           return providerShoppingModel;
         }).toList();
+        filteredProviderShoppingModelList.addAll(providerShoppingModelList);
         // var list = (jsonDecode(response.body) as List);
         // for (var element in list) {
         //   print(element);
@@ -45,5 +48,18 @@ class ShopsProvider extends ChangeNotifier {
       notifyListeners();
     }
     log("providerShoppingModelList ${providerShoppingModelList.length}");
+  }
+
+  searchProdcuts(String searchItem) async {
+    await Future.delayed(const Duration(milliseconds: 300));
+    filteredProviderShoppingModelList = providerShoppingModelList
+        .where((element) =>
+            element.title.toLowerCase().contains(searchItem.toLowerCase()) ||
+            element.description
+                .toLowerCase()
+                .contains(searchItem.toLowerCase()))
+        .toList();
+
+    notifyListeners();
   }
 }

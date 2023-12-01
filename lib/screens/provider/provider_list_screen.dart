@@ -61,18 +61,28 @@ class _ProviderListScreenState extends State<ProviderListScreen> {
         //return Text("${shopsProvider.providerShoppingModelList.toString()}");
         return Column(
           children: [
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: TextField(
+                onChanged: (value) {
+                  shopsProvider.searchProdcuts(value);
+                },
+                decoration: InputDecoration(
+                    hintText: "Search here", border: OutlineInputBorder()),
+              ),
+            ),
             shopProvider.isLoading
                 ? const Center(child: CircularProgressIndicator())
                 : shopsProvider.error.isNotEmpty
                     ? Text(shopsProvider.error)
                     : Expanded(
                         child: ListView.builder(
-                            itemCount:
-                                shopsProvider.providerShoppingModelList.length,
+                            itemCount: shopsProvider
+                                .filteredProviderShoppingModelList.length,
                             itemBuilder: (context, index) {
                               ProviderShoppingModel providerShoppingModel =
                                   shopsProvider
-                                      .providerShoppingModelList[index];
+                                      .filteredProviderShoppingModelList[index];
                               return Card(
                                 child: ListTile(
                                   leading: Image.network(

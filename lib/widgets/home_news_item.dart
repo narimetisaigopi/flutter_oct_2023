@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_telugu/screens/details_page.dart';
+import 'package:flutter_telugu/screens/full_image.dart';
+import 'package:get/route_manager.dart';
 
 class HomeNewsItem extends StatelessWidget {
   final String imageUrl, title, description;
@@ -24,11 +26,18 @@ class HomeNewsItem extends StatelessWidget {
           //             )));
           showAboutBottomSheet(context);
         },
-        leading: Image.network(
-          imageUrl,
-          width: 100,
-          height: 100,
-          fit: BoxFit.fill,
+        leading: InkWell(
+          onTap: () {
+            Get.to(() => FullImage(
+                  url: imageUrl,
+                ));
+          },
+          child: Image.network(
+            imageUrl,
+            width: 100,
+            height: 100,
+            fit: BoxFit.fill,
+          ),
         ),
         title: Text(title),
         subtitle: Text(

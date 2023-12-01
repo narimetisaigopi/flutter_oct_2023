@@ -1,0 +1,2 @@
+alias: fluttertelugu
+password: fluttertelugu@123

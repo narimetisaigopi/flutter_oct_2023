@@ -7,6 +7,7 @@ import 'package:flutter_telugu/screens/dashboard/profile_screen.dart';
 import 'package:flutter_telugu/screens/dashboard/shop_screen.dart';
 import 'package:flutter_telugu/screens/my_getx/my_getx_screen.dart';
 import 'package:flutter_telugu/screens/notifications/notifications_screen.dart';
+import 'package:flutter_telugu/screens/payments/razorpay_payment_gateway_screen.dart';
 import 'package:flutter_telugu/screens/provider/provider_list_screen.dart';
 import 'package:flutter_telugu/screens/settings/profile_settings.dart';
 import 'package:flutter_telugu/screens/slide_show_screen.dart';
@@ -197,6 +198,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   Navigator.pop(context);
                   Navigator.push(context,
                       MaterialPageRoute(builder: (ctx) => ProfileSettings()));
+                },
+              ),
+              //if (Platform.isAndroid || Platform.isIOS)
+              // if (kIsWeb)
+              DrawerItem(
+                title: "Subscription",
+                iconData: Icons.transcribe,
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (ctx) => RazorpayPaymentGatewayScreen()));
                 },
               ),
               DrawerItem(

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_telugu/screens/details_page.dart';
 
@@ -25,7 +26,7 @@ class _CartScreenState extends State<CartScreen> {
       body: GridView.builder(
           itemCount: programmingImagesList.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
+              crossAxisCount: kIsWeb ? 4 : 2,
               crossAxisSpacing: 10,
               mainAxisSpacing: 10,
               childAspectRatio: 3 / 3),
